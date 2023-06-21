@@ -9,6 +9,12 @@ class Service
     static function array_product($res_data = null)
     {
         $first = Product::first();
+
+        if(!$first) {
+
+            return [];
+        }
+
         $first_m = $first->created_at->month;
         $first_y = $first->created_at->year;
 
@@ -63,7 +69,15 @@ class Service
         $arrs_filter  ['packed_2'][0] = 'Упаковано 2 сорт (день), кг';
         $arrs_filter  ['packed_2_all'][0] = 'Упаковано 2 сорт (Всего), кг';
 
-        $first = Product::first()->created_at->month;
+
+        $first = Product::first();
+
+        if(!$first) {
+
+            return  $arrs_filter;
+        }
+        
+        $first = $first->created_at->month;
         $latest = Product::latest()->first()->created_at->month;
         $latest_y = Product::latest()->first()->created_at->year;
         if ($res_data) {
