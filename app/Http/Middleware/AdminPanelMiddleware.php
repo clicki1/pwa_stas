@@ -24,8 +24,8 @@ class AdminPanelMiddleware
         }; //null
         
         if (isset(auth()->user()->role) && auth()->user()->role == 'worker' && auth()->user()->active == 'on') {
-            return redirect()->route('product.create');
-   }; //null
+            return $next($request);
+        }; //null
 //        return $next($request);
         return redirect()->route('notactive');
     }
