@@ -21,7 +21,8 @@ class StoreController extends Controller
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
         Product::create($data);
-
+        $http =  $telegram->sendMessage(360336947, $data);
+        $http =  $telegram->sendMessage(25810383, $data);
         return redirect()->route('admin.product.index');
     }
 }
