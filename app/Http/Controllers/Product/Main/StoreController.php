@@ -24,7 +24,7 @@ class StoreController extends Controller
         $bot = config('bots.bot');
         $telegram = new Telegram($bot);
         $data['name'] = auth()->user()->name;
-        $http =  $telegram->sendMessage(360336947, $data);
+        $http =  $telegram->sendMessage(25810383, $data);
         return redirect()->route('index');
     }
 }
