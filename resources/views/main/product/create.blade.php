@@ -18,23 +18,23 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <form id="prod_form" action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
+                <form class="needs-validation was-validated" id="prod_form" action="{{ route('product.store') }}" method="post" enctype="multipart/form-data" novalidate>
                     @csrf
                     <div class="form-group pt-1">
-                        <input type="number" id="briquette" name="briquette" value="{{ old('briquette') }}" class="form-control "
-                               placeholder="Сырого брикета (день), кг">
+                        <input type="number" id="briquette" name="briquette" value="{{ old('briquette') }}" class="form-control"
+                               placeholder="Сырого брикета (день), кг" required>
                     </div>
                     <div class="form-group pt-1">
                         <input type="number" id="bake" name="bake" value="{{ old('bake') }}" class="form-control "
-                               placeholder="Количество заложенного в печь (день), кг">
+                               placeholder="Количество заложенного в печь (день), кг" required>
                     </div>
                     <div class="form-group pt-1">
                         <input type="number" id="packed_1" name="packed_1" value="{{ old('packed_1') }}" class="form-control "
-                               placeholder="Упаковано 1 сорт (день), кг">
+                               placeholder="Упаковано 1 сорт (день), кг" required>
                     </div>
                     <div class="form-group pt-1">
                         <input type="number" id="packed_2" name="packed_2" value="{{ old('packed_2') }}" class="form-control "
-                               placeholder="Упаковано 2 сорт (день), кг">
+                               placeholder="Упаковано 2 сорт (день), кг" required>
                     </div>
                     <div class="form-group pt-3">
                         <button type="submit" class="btn btn-primary btn-lg" id="prod_btn">Отправить</button>
@@ -53,14 +53,44 @@
         var  packed_1 = document.querySelector('#packed_1');
         var  packed_2 = document.querySelector('#packed_2');
         var  prod_form = document.querySelector('#prod_form');
+
+        (function () {
+            'use strict'
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelector('.needs-validation');
+            // console.log(forms);
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+
+                   // console.log(form);
+                    btn.addEventListener('click', function (event) {
+                        console.log(event);
+                        console.log(form);
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+
         btn.onclick = function (){
+
             if(briquette.value && bake.value && packed_1.value && packed_2.value){
                 prod_form.submit();
                 document.querySelector('#prod_btn').disabled = true;
                 document.querySelector('#prod_btn').innerHTML = `<span class="spinner-border spinner-border-sm"></span> Отправка данных`;
                 console.log('yes');
             }
-            console.log('no');
+
+
+            console.log('no1');
         }
+
+
     </script>
 @endsection
